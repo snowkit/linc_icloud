@@ -1,5 +1,30 @@
 package icloud;
 
+@:enum abstract KeyValueStoreChangeReason(Int)
+    from Int to Int {
+
+    var ServerChange = 0;
+    var InitialSyncChange = 1;
+    var QuotaViolationChange = 2;
+    var AccountChange  = 3;
+
+    inline function toString() {
+        return switch(this) {
+            case ServerChange:          return 'ServerChange';
+            case InitialSyncChange:     return 'InitialSyncChange';
+            case QuotaViolationChange:  return 'QuotaViolationChange';
+            case AccountChange:         return 'AccountChange';
+            case _:                     return '$this';
+        }
+    }
+
+} //KeyValueStoreChangeReason
+
+typedef KeyValueStoreDidChangeNotification = {
+    var changeReason: Null<KeyValueStoreChangeReason>;
+    var changedKeys: Array<String>;
+}
+
 @:keep
 @:include('linc_icloud.h')
 #if !display
@@ -8,7 +33,9 @@ package icloud;
 #end
 extern class KeyValue {
 
-    static inline function init(func:Void->Void) : Bool return KeyValueInternal.init(func);
+    static inline function init(func:KeyValueStoreDidChangeNotification->Void) : Bool {
+        return KeyValueInternal.init(func);
+    }
 
     @:native('linc::icloud::keyvalue::synchronize')
     static function synchronize() : Bool;
@@ -42,28 +69,33 @@ extern class KeyValue {
 
     @:allow(icloud.KeyValueInternal)
     @:native('linc::icloud::keyvalue::internal_init')
-    private static function internal_init(func:cpp.Callable<Void->Void>) : Bool;
+    private static function internal_init(func:cpp.Callable<Int->Array<String>->Void>) : Bool;
 
 }
 
 @:allow(icloud.KeyValue)
 private class KeyValueInternal {
 
-    static var callback : Void->Void;
+    static var callback : KeyValueStoreDidChangeNotification->Void;
 
-    static function init(func:Void->Void) : Bool {
+    static function init(func:KeyValueStoreDidChangeNotification->Void) : Bool {
+
+        if(func == null) throw "iCloud callback mustn't be null";
+        if(callback != null) throw "iCloud callback already set, are you accidentally calling init twice?";
 
         callback = func;
 
         return KeyValue.internal_init(cpp.Callable.fromStaticFunction(internal_callback));
 
-    }
+    } //
 
-    static function internal_callback() {
+    static function internal_callback(reason:Int, keys:Array<String>) {
 
-        //:todo: Implement callback types and data transforms on native side
-        trace('internal callback!');
+        callback({
+            changeReason: reason == -1 ? null : reason,
+            changedKeys: keys
+        });
 
-    }
+    } //
 
 }

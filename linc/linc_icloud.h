@@ -9,7 +9,7 @@ namespace linc {
 
         namespace keyvalue {
 
-            typedef ::cpp::Function < Void() > InternalStoreChangedExternallyFN;
+            typedef ::cpp::Function < Void(int,::Array< ::String >) > InternalStoreChangedExternallyFN;
             extern bool internal_init(InternalStoreChangedExternallyFN fn);
 
             extern void removeObjectForKey(::String key);
