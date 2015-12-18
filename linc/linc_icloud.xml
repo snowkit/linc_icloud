@@ -1,0 +1,17 @@
+<xml>
+
+    <!-- <error value="iCloud is specific to iOS." unless="ios"/> -->
+    <files id='haxe'>
+
+        <compilerflag value='-I${LINC_ICLOUD_PATH}/linc/'/>
+
+        <file name='${LINC_ICLOUD_PATH}/linc/linc_icloud.mm'/>
+
+    </files>
+
+    <target id="haxe">
+
+
+    </target>
+
+</xml>
