@@ -20,7 +20,6 @@ namespace linc {
 
             static void store_changed_externally(NSNotification *notification) {
 
-                NSLog(@"Store Changed!");
                 if(callback != null()) {
 
                     int return_reason = -1;
@@ -50,9 +49,11 @@ namespace linc {
                     }
 
                     int key_count = [changed_keys count];
-                    Array< ::String> return_arr = new Array_obj< ::String>(key_count,key_count);
+                    Array< ::String> return_arr = new Array_obj< ::String>(0,0);
                     for (NSString* key in changed_keys) {
-                        return_arr.Add( from_NSString(key) );
+                        if(key != nil) {
+                            return_arr.Add( from_NSString(key) );
+                        }
                     }
 
                     callback(return_reason, return_arr);
