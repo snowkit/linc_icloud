@@ -1,6 +1,8 @@
 # linc/iCloud
 Haxe/hxcpp @:native bindings for [iCloud](https://developer.apple.com/icloud/).
 
+This library was sponsored by http://grapefrukt.com/
+
 This is a [linc](http://snowkit.github.io/linc/) library.
 
 ---
