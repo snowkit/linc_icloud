@@ -16,7 +16,7 @@ This library works with the Haxe cpp target only.
 
 ### Important notes
 
-Linking to the iCloud framework does require the framework to exist. If you target lower version devices that don't have iCloud support, you have to Weak Link the reference in your Xcode project.
+Linking to the iCloud framework does require the framework to exist. If you target lower version devices that don't have iCloud support for the features, you have to Weak Link the reference in your Xcode project to avoid crashes on start up.
 
 Read this [Apple documentation on frameworks](https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WeakLinking.html#//apple_ref/doc/uid/20002378-BBCJICEC) under “Weak Linking to Entire Frameworks”
 
