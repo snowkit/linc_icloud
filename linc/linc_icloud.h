@@ -1,6 +1,5 @@
-#ifndef _LINC_ICLOUD_H_
-#define _LINC_ICLOUD_H_
-    
+#pragma once
+
 #include <hxcpp.h>
 
 namespace linc {
@@ -32,5 +31,3 @@ namespace linc {
     } //icloud namespace
 
 } //linc
-
-#endif //_LINC_ICLOUD_H_
