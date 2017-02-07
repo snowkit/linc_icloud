@@ -7,8 +7,14 @@ namespace linc {
     namespace icloud {
 
         namespace keyvalue {
+            
+            #if (HXCPP_API_LEVEL>=330)
+                typedef void LinciCloudVoid;
+            #else
+                typedef Void LinciCloudVoid;
+            #endif
 
-            typedef ::cpp::Function < Void(int,::Array< ::String >) > InternalStoreChangedExternallyFN;
+            typedef ::cpp::Function < LinciCloudVoid(int,::Array< ::String >) > InternalStoreChangedExternallyFN;
             extern bool internal_init(InternalStoreChangedExternallyFN fn);
 
             extern void removeObjectForKey(::String key);
