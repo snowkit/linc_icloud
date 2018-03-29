@@ -1,6 +1,8 @@
-#include "./linc_icloud.h"
+#ifndef HXCPP_H
+#include <hxcpp.h>
+#endif
 
-#import "hxcpp.h"
+#include "./linc_icloud.h"
 #import <Foundation/Foundation.h>
 
 namespace linc {
