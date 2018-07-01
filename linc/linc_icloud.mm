@@ -1,6 +1,4 @@
-#ifndef HXCPP_H
 #include <hxcpp.h>
-#endif
 
 #include "./linc_icloud.h"
 #import <Foundation/Foundation.h>
